@@ -12,7 +12,6 @@ const app = new Hono()
 
 // not found handler
 app.notFound(notFoundHandler)
-
 // error handler
 app.onError(errorHandler)
 
@@ -21,4 +20,5 @@ app.route("/artists", artistRouter)
 app.route("/albums", albumRouter)
 app.route("/tracks", trackRouter)
 
-export default app
+// export default app
+export default app.fetch
