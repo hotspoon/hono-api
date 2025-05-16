@@ -12,6 +12,7 @@ const app = new Hono()
 
 // not found handler
 app.notFound(notFoundHandler)
+
 // error handler
 app.onError(errorHandler)
 
