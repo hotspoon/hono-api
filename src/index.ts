@@ -29,4 +29,4 @@ app.get("/", (c) =>
   })
 )
 
-export default app
+export default handle(app)
