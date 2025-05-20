@@ -22,4 +22,11 @@ app.onError(errorHandler)
 app.use(logger())
 app.route("/", router)
 
+app.get("/", (c) =>
+  c.json({
+    message: "Welcome to the API",
+    version: "1.0.0"
+  })
+)
+
 export default handle(app)
