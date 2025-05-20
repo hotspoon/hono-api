@@ -3,6 +3,7 @@
   "scripts": {
     "start": "vercel dev",
     "deploy": "vercel",
+    "build": "vercel build",
     "dev": "bun run --hot src/index.ts"
   },
   "dependencies": {
