@@ -1,9 +1,5 @@
 import { Hono } from "hono"
-import { handle } from "hono/vercel"
-
-export const config = {
-  runtime: "edge"
-}
+import { serve } from "@hono/node-server"
 
 import { logger } from "hono/logger"
 import { errorHandler } from "../src/middlewares/errorHandler"
@@ -29,10 +25,19 @@ app.get("/", (c) =>
   })
 )
 
-const handler = handle(app)
+const server = serve(app)
 
-export const GET = handler
-export const POST = handler
-export const PATCH = handler
-export const PUT = handler
-export const OPTIONS = handler
+// graceful shutdown
+process.on("SIGINT", () => {
+  server.close()
+  process.exit(0)
+})
+process.on("SIGTERM", () => {
+  server.close((err) => {
+    if (err) {
+      console.error(err)
+      process.exit(1)
+    }
+    process.exit(0)
+  })
+})
