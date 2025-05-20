@@ -1,4 +1,10 @@
 import { Hono } from "hono"
+import { handle } from "hono/vercel"
+
+export const config = {
+  runtime: "edge"
+}
+
 import { logger } from "hono/logger"
 import { errorHandler } from "./middlewares/errorHandler"
 import { notFoundHandler } from "./middlewares/notFoundHandler"
@@ -16,4 +22,4 @@ app.onError(errorHandler)
 app.use(logger())
 app.route("/", router)
 
-export default app
+export default handle(app)
