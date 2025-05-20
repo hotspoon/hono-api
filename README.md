@@ -4,7 +4,8 @@ A RESTful API built with [Hono](https://hono.dev/) and SQLite (Chinook sample da
 
 ## Features
 
-- CRUD operations for Artists, Albums, and Tracks
+- CRUD operations for artists, albums, tracks, employees, customers, genres, invoices, invoice items, playlists, and media types
+- Support for querying related data (e.g., albums by artist, tracks by album)
 - Pagination support for listing endpoints
 - Input validation using Zod
 - Error handling middleware
