@@ -3,7 +3,7 @@
   "scripts": {
     "start": "vercel dev",
     "deploy": "vercel",
-    "dev": "bun run --hot src/index.ts"
+    "dev": "bun run --hot api/index.ts"
   },
   "dependencies": {
     "@hono/zod-validator": "^0.5.0",

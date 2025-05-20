@@ -1,16 +1,12 @@
 import { Hono } from "hono"
 import { handle } from "hono/vercel"
 
-export const config = {
-  runtime: "edge"
-}
-
 import { logger } from "hono/logger"
-import { errorHandler } from "./middlewares/errorHandler"
-import { notFoundHandler } from "./middlewares/notFoundHandler"
+import { errorHandler } from "../src/middlewares/errorHandler"
+import { notFoundHandler } from "../src/middlewares/notFoundHandler"
 
 // router
-import router from "./routes"
+import router from "../src/routes"
 
 const app = new Hono().basePath("/api")
 
