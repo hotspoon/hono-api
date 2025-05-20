@@ -12,7 +12,7 @@ import { notFoundHandler } from "./middlewares/notFoundHandler"
 // router
 import router from "./routes"
 
-const app = new Hono()
+const app = new Hono().basePath("/api")
 
 // not found handler
 app.notFound(notFoundHandler)
@@ -29,4 +29,4 @@ app.get("/", (c) =>
   })
 )
 
-export default handle(app)
+export default app
