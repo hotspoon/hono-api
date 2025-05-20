@@ -1,6 +1,10 @@
 import { Hono } from "hono"
 import { handle } from "hono/vercel"
 
+export const config = {
+  runtime: "edge"
+}
+
 import { logger } from "hono/logger"
 import { errorHandler } from "../src/middlewares/errorHandler"
 import { notFoundHandler } from "../src/middlewares/notFoundHandler"
