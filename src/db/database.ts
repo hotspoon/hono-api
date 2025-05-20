@@ -1,9 +1,11 @@
 import { Database } from "bun:sqlite"
+import path from "path"
 
 function initializeDatabase(): Database {
   try {
     // Initialize SQLite database
-    const db = new Database("./chinook.db")
+    const dbPath = path.join(process.cwd(), "chinook.db")
+    const db = new Database(dbPath)
     console.log("Database connection established successfully.")
 
     return db

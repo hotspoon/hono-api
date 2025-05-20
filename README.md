@@ -60,25 +60,62 @@ The server will start on [http://localhost:3000](http://localhost:3000).
 - `GET /tracks/album/:albumId/tracks` — List tracks by album
 - `GET /tracks/genre/:genreId/tracks` — List tracks by genre
 
-## Project Structure
+### Employees
 
-```
-src/
-  index.ts                # Entry point
-  db/
-    database.ts           # SQLite database connection
-  middlewares/
-    errorHandler.ts       # Error handling middleware
-    notFoundHandler.ts    # 404 handler
-  routes/
-    artists.ts            # Artists endpoints
-    albums.ts             # Albums endpoints
-    tracks.ts             # Tracks endpoints
-  schema/
-    artists.ts            # Zod schema for artists
-    albums.ts             # Zod schema for albums
-    tracks.ts             # Zod schema for tracks
-```
+- `GET /employees` — List all employees
+- `GET /employees/:id` — Get employee by ID
+- `GET /employees/:id/reports` — Get employees reporting to this employee
+- `POST /employees` — Create new employee
+- `PUT /employees/:id` — Update employee
+- `DELETE /employees/:id` — Delete employee
+
+### Customers
+
+- `GET /customers` — List customers
+- `GET /customers/:id` — Get customer by ID
+- `GET /customers/:id/invoices` — Get invoices for a customer
+- `POST /customers` — Create customer
+- `PUT /customers/:id` — Update customer
+- `DELETE /customers/:id` — Delete customer
+- `GET /customers/email/:email` — Get customer by email
+
+### Genres
+
+- `GET /genres` — List genres
+- `GET /genres/:id` — Get genre by ID
+- `POST /genres` — Create genre
+- `PUT /genres/:id` — Update genre
+- `DELETE /genres/:id` — Delete genre
+
+### Invoices
+
+- `GET /invoices` — List invoices (supports `page` and `limit`)
+- `GET /invoices/:id` — Get invoice by ID
+- `GET /invoices/:id/items` — Get invoice items for an invoice
+- `POST /invoices` — Create invoice
+- `PUT /invoices/:id` — Update invoice
+- `DELETE /invoices/:id` — Delete invoice
+
+### Invoice Items
+
+- `GET /invoice-items` — List invoice items (supports `page` and `limit`)
+- `GET /invoice-items/:id` — Get invoice item by ID
+
+### Playlists
+
+- `GET /playlists` — List playlists
+- `GET /playlists/:id` — Get playlist by ID
+- `POST /playlists` — Create playlist
+- `PUT /playlists/:id` — Update playlist
+- `DELETE /playlists/:id` — Delete playlist
+- `GET /playlists/:id/tracks` — List tracks in a playlist
+- `POST /playlists/:id/tracks` — Add track to playlist
+- `DELETE /playlists/:id/tracks/:trackId` — Remove track from playlist
+
+### Media Types
+
+- `GET /media-types` — List all media types
+- `GET /media-types/:id` — Get media type by ID
 
 ## License
 

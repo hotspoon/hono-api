@@ -2,18 +2,14 @@
   "name": "hono-api",
   "scripts": {
     "start": "vercel dev",
-    "dev": "bun run --hot src/index.ts",
-    "deploy": "vercel"
+    "dev": "bun run --hot src/index.ts"
   },
   "dependencies": {
-    "@hono/zod-openapi": "^0.19.6",
     "@hono/zod-validator": "^0.5.0",
-    "better-sqlite3": "^11.10.0",
     "hono": "^4.7.8",
     "zod": "^3.24.4"
   },
   "devDependencies": {
-    "@types/better-sqlite3": "^7.6.13",
     "@types/bun": "latest",
     "vercel": "^41.7.8"
   }

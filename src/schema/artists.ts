@@ -1,4 +1,4 @@
-import { z } from "@hono/zod-openapi"
+import { z } from "zod"
 
 // Zod schema for artist validation
 export const ArtistSchema = z.object({
