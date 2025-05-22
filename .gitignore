@@ -3,3 +3,5 @@ node_modules/
 .vercel
 bun.lock
 .env
+.vscode
+logs

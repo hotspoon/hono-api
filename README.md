@@ -1,9 +1,11 @@
 # Hono API
 
-A RESTful API built with [Hono](https://hono.dev/) and SQLite (Chinook sample database) for managing artists, albums, and tracks.
+A RESTful API built with [Hono](https://hono.dev/) and SQLite (Chinook sample database) for managing artists, albums, tracks, employees, customers, genres, invoices, invoice items, playlists, and media types.
+This API provides a simple and efficient way to interact with the Chinook database, allowing you to perform CRUD operations on various entities.
 
 ## Features
 
+- JWT authentication for secure endpoints
 - CRUD operations for artists, albums, tracks, employees, customers, genres, invoices, invoice items, playlists, and media types
 - Support for querying related data (e.g., albums by artist, tracks by album)
 - Pagination support for listing endpoints
@@ -117,6 +119,10 @@ The server will start on [http://localhost:3000](http://localhost:3000).
 
 - `GET /media-types` — List all media types
 - `GET /media-types/:id` — Get media type by ID
+
+## Environment Variables
+
+- `JWT_SECRET` — Secret key for JWT signing (default: `your_jwt_secret`)
 
 ## License
 

@@ -17,4 +17,11 @@ export const employeeSchema = z.object({
   email: z.string().nullable().optional()
 })
 
-// export type Employee = z.infer<typeof employeeSchema>
+export interface Employee {
+  EmployeeId: number
+  Email: string
+  FirstName: string
+  LastName: string
+  Title: string
+  Password: string
+}
