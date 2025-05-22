@@ -1,21 +1,22 @@
 import { Hono } from "hono"
-import { serve } from "@hono/node-server"
-
 import { logger } from "hono/logger"
+import { authMiddleware } from "../src/middlewares/authMiddleware"
 import { errorHandler } from "../src/middlewares/errorHandler"
 import { notFoundHandler } from "../src/middlewares/notFoundHandler"
-
-// router
 import router from "../src/routes"
+import authRoutes from "../src/routes/auth.routes"
 
-const app = new Hono().basePath("/api")
+const app = new Hono()
 
-// not found handler
 app.notFound(notFoundHandler)
-// error handler
 app.onError(errorHandler)
-
 app.use(logger())
+
+// Public auth routes
+app.route("/auth", authRoutes)
+
+app.use("/*", authMiddleware)
+
 app.route("/", router)
 
 app.get("/", (c) =>
@@ -25,19 +26,4 @@ app.get("/", (c) =>
   })
 )
 
-const server = serve(app)
-
-// graceful shutdown
-process.on("SIGINT", () => {
-  server.close()
-  process.exit(0)
-})
-process.on("SIGTERM", () => {
-  server.close((err) => {
-    if (err) {
-      console.error(err)
-      process.exit(1)
-    }
-    process.exit(0)
-  })
-})
+export default app
