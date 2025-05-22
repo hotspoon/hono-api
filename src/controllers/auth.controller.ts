@@ -1,51 +1,54 @@
-import type { Context } from "hono"
-import { sign } from "hono/jwt"
-import { employeeSchema } from "../schema/employees"
-import { validateEmail, validatePassword } from "../utils/common"
-import * as authService from "../services/auth.service"
+import type { Context } from "hono";
+import { sign } from "hono/jwt";
+import { employeeSchema } from "../schema/employees";
+import { validateEmail, validatePassword } from "../utils/common";
+import * as authService from "../services/auth.service";
 
-const JWT_SECRET = process.env.JWT_SECRET || ""
+const JWT_SECRET = process.env.JWT_SECRET || "";
 
 export const signUp = async (c: Context) => {
-  const employee = c.req.valid("json" as never)
-  const { email, password } = await c.req.json()
+  const employee = c.req.valid("json" as never);
+  const { email, password } = await c.req.json();
 
   // Validate email and password
-  const emailError = validateEmail(email)
-  if (emailError) return c.json({ error: emailError }, 400)
-  const passwordError = validatePassword(password)
-  if (passwordError) return c.json({ error: passwordError }, 400)
+  const emailError = validateEmail(email);
+  if (emailError) return c.json({ error: emailError }, 400);
+  const passwordError = validatePassword(password);
+  if (passwordError) return c.json({ error: passwordError }, 400);
 
   // Check if email already exists
   if (authService.isEmailRegistered(email)) {
-    return c.json({ error: "Email already registered" }, 409)
+    return c.json({ error: "Email already registered" }, 409);
   }
 
   // Hash password
-  const hashedPassword = await authService.hashPassword(password)
+  const hashedPassword = await authService.hashPassword(password);
 
   // Insert employee
-  const result = authService.createEmployee(employee, email, hashedPassword)
-  return c.json({ message: "Sign-up successful", id: result.lastInsertRowid }, 201)
-}
+  const result = authService.createEmployee(employee, email, hashedPassword);
+  return c.json(
+    { message: "Sign-up successful", id: result.lastInsertRowid },
+    201,
+  );
+};
 
 export const signIn = async (c: Context) => {
-  const { email, password } = await c.req.json()
+  const { email, password } = await c.req.json();
 
   // Validate email and password
-  const emailError = validateEmail(email)
-  if (emailError) return c.json({ error: emailError }, 400)
-  const passwordError = validatePassword(password)
-  if (passwordError) return c.json({ error: passwordError }, 400)
+  const emailError = validateEmail(email);
+  if (emailError) return c.json({ error: emailError }, 400);
+  const passwordError = validatePassword(password);
+  if (passwordError) return c.json({ error: passwordError }, 400);
 
-  const employee = authService.findEmployeeByEmail(email)
+  const employee = authService.findEmployeeByEmail(email);
   if (!employee) {
-    return c.json({ error: "Invalid credentials" }, 401)
+    return c.json({ error: "Invalid email" }, 401);
   }
 
-  const valid = await authService.verifyPassword(password, employee.Password)
+  const valid = await authService.verifyPassword(password, employee.Password);
   if (!valid) {
-    return c.json({ error: "Invalid credentials" }, 401)
+    return c.json({ error: "Invalid password" }, 401);
   }
 
   const token = await sign(
@@ -54,9 +57,10 @@ export const signIn = async (c: Context) => {
       email: employee.Email,
       name: `${employee.FirstName} ${employee.LastName}`,
       title: employee.Title,
-      exp: Math.floor(Date.now() / 1000) + 60 * 60 // 1 hour expiry
+      role: employee.Role, // Include role
+      exp: Math.floor(Date.now() / 1000) + 60 * 60, // 1 hour expiry
     },
-    JWT_SECRET
-  )
-  return c.json({ token })
-}
+    JWT_SECRET,
+  );
+  return c.json({ token });
+};

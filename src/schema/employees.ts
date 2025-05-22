@@ -1,4 +1,4 @@
-import { z } from "zod"
+import { z } from "zod";
 
 export const employeeSchema = z.object({
   lastName: z.string(),
@@ -14,14 +14,15 @@ export const employeeSchema = z.object({
   postalCode: z.string().nullable().optional(),
   phone: z.string().nullable().optional(),
   fax: z.string().nullable().optional(),
-  email: z.string().nullable().optional()
-})
+  email: z.string().nullable().optional(),
+});
 
 export interface Employee {
-  EmployeeId: number
-  Email: string
-  FirstName: string
-  LastName: string
-  Title: string
-  Password: string
+  EmployeeId: number;
+  Email: string;
+  FirstName: string;
+  LastName: string;
+  Title: string;
+  Password: string;
+  Role: string;
 }
