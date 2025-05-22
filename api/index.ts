@@ -1,16 +1,18 @@
 import { Hono } from "hono"
-import { logger } from "hono/logger"
 import { authMiddleware } from "../src/middlewares/authMiddleware"
 import { errorHandler } from "../src/middlewares/errorHandler"
 import { notFoundHandler } from "../src/middlewares/notFoundHandler"
 import router from "../src/routes"
 import authRoutes from "../src/routes/auth.routes"
+import { loggingMiddleware } from "../src/middlewares/loggingMiddleware"
 
 const app = new Hono()
 
 app.notFound(notFoundHandler)
 app.onError(errorHandler)
-app.use(logger())
+
+// Use custom logging middleware
+app.use("*", loggingMiddleware)
 
 // Public auth routes
 app.route("/auth", authRoutes)

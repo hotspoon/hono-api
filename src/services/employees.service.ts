@@ -1,6 +1,12 @@
 import { db } from "../db/database"
 
-export const getEmployees = () => db.query("SELECT * FROM employees").all()
+export const getEmployees = () =>
+  db
+    .query(
+      `SELECT EmployeeId, LastName, FirstName, Title, ReportsTo, BirthDate, HireDate, Address, City, State, Country, PostalCode, Phone, Fax, Email
+     FROM employees`
+    )
+    .all()
 
 export const getEmployeeById = (id: string) =>
   db.query("SELECT * FROM employees WHERE EmployeeId = ?").get(id)
