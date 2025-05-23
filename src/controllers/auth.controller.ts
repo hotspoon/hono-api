@@ -43,12 +43,15 @@ export const signIn = async (c: Context) => {
 
   const employee = authService.findEmployeeByEmail(email);
   if (!employee) {
-    return c.json({ error: "Invalid email" }, 401);
+    return c.json({ error: "Email not found, please sign up first" }, 401);
   }
 
   const valid = await authService.verifyPassword(password, employee.Password);
   if (!valid) {
-    return c.json({ error: "Invalid password" }, 401);
+    return c.json(
+      { error: "Wrong password, please make sure you entered it correctly" },
+      401,
+    );
   }
 
   const token = await sign(
