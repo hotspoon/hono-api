@@ -1,0 +1,502 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Hono API",
+    "version": "1.0.0",
+    "description": "Starter OpenAPI spec for the Hono API project. Schemas are placeholders; update as needed."
+  },
+  "servers": [
+    {
+      "url": "/"
+    }
+  ],
+  "tags": [
+    { "name": "auth" },
+    { "name": "artists" },
+    { "name": "albums" },
+    { "name": "tracks" },
+    { "name": "genres" },
+    { "name": "media-types" },
+    { "name": "customers" },
+    { "name": "invoices" },
+    { "name": "invoice-items" },
+    { "name": "employees" },
+    { "name": "playlists" }
+  ],
+  "paths": {
+    "/auth/signup": {
+      "post": {
+        "tags": ["auth"],
+        "summary": "Sign up",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/Employee" }
+            }
+          }
+        },
+        "responses": {
+          "201": { "description": "Created" },
+          "400": { "description": "Invalid input" }
+        }
+      }
+    },
+    "/auth/signin": {
+      "post": {
+        "tags": ["auth"],
+        "summary": "Sign in",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "type": "object", "properties": { "email": { "type": "string" }, "password": { "type": "string" } } }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "Authenticated" },
+          "401": { "description": "Unauthorized" }
+        }
+      }
+    },
+    "/artists": {
+      "get": { "tags": ["artists"], "summary": "List artists", "responses": { "200": { "description": "OK" } } },
+      "post": {
+        "tags": ["artists"],
+        "summary": "Create artist",
+        "requestBody": {
+          "required": true,
+          "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Artist" } } }
+        },
+        "responses": { "201": { "description": "Created" }, "400": { "description": "Invalid input" } }
+      }
+    },
+    "/artists/{id}": {
+      "get": { "tags": ["artists"], "summary": "Get artist", "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }], "responses": { "200": { "description": "OK" }, "404": { "description": "Not found" } } },
+      "put": {
+        "tags": ["artists"],
+        "summary": "Update artist",
+        "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }],
+        "requestBody": {
+          "required": true,
+          "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Artist" } } }
+        },
+        "responses": { "200": { "description": "Updated" }, "400": { "description": "Invalid input" }, "404": { "description": "Not found" } }
+      },
+      "delete": {
+        "tags": ["artists"],
+        "summary": "Delete artist",
+        "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }],
+        "responses": { "204": { "description": "Deleted" }, "404": { "description": "Not found" } }
+      }
+    },
+    "/albums": {
+      "get": { "tags": ["albums"], "summary": "List albums", "responses": { "200": { "description": "OK" } } },
+      "post": {
+        "tags": ["albums"],
+        "summary": "Create album",
+        "requestBody": {
+          "required": true,
+          "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Album" } } }
+        },
+        "responses": { "201": { "description": "Created" }, "400": { "description": "Invalid input" } }
+      }
+    },
+    "/albums/{id}": {
+      "get": { "tags": ["albums"], "summary": "Get album", "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }], "responses": { "200": { "description": "OK" }, "404": { "description": "Not found" } } },
+      "put": {
+        "tags": ["albums"],
+        "summary": "Update album",
+        "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }],
+        "requestBody": {
+          "required": true,
+          "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Album" } } }
+        },
+        "responses": { "200": { "description": "Updated" }, "400": { "description": "Invalid input" }, "404": { "description": "Not found" } }
+      },
+      "delete": {
+        "tags": ["albums"],
+        "summary": "Delete album",
+        "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }],
+        "responses": { "204": { "description": "Deleted" }, "404": { "description": "Not found" } }
+      }
+    },
+    "/albums/artist/{artistId}": {
+      "get": {
+        "tags": ["albums"],
+        "summary": "Get albums by artist",
+        "parameters": [{ "name": "artistId", "in": "path", "required": true, "schema": { "type": "string" } }],
+        "responses": { "200": { "description": "OK" }, "404": { "description": "Not found" } }
+      }
+    },
+    "/tracks": {
+      "get": { "tags": ["tracks"], "summary": "List tracks", "responses": { "200": { "description": "OK" } } },
+      "post": {
+        "tags": ["tracks"],
+        "summary": "Create track",
+        "requestBody": {
+          "required": true,
+          "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Track" } } }
+        },
+        "responses": { "201": { "description": "Created" }, "400": { "description": "Invalid input" } }
+      }
+    },
+    "/tracks/{id}": {
+      "get": { "tags": ["tracks"], "summary": "Get track", "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }], "responses": { "200": { "description": "OK" }, "404": { "description": "Not found" } } },
+      "put": {
+        "tags": ["tracks"],
+        "summary": "Update track",
+        "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }],
+        "requestBody": {
+          "required": true,
+          "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Track" } } }
+        },
+        "responses": { "200": { "description": "Updated" }, "400": { "description": "Invalid input" }, "404": { "description": "Not found" } }
+      },
+      "delete": {
+        "tags": ["tracks"],
+        "summary": "Delete track",
+        "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }],
+        "responses": { "204": { "description": "Deleted" }, "404": { "description": "Not found" } }
+      }
+    },
+    "/tracks/album/{albumId}/tracks": {
+      "get": {
+        "tags": ["tracks"],
+        "summary": "Get tracks by album",
+        "parameters": [{ "name": "albumId", "in": "path", "required": true, "schema": { "type": "string" } }],
+        "responses": { "200": { "description": "OK" }, "404": { "description": "Not found" } }
+      }
+    },
+    "/tracks/genre/{genreId}/tracks": {
+      "get": {
+        "tags": ["tracks"],
+        "summary": "Get tracks by genre",
+        "parameters": [{ "name": "genreId", "in": "path", "required": true, "schema": { "type": "string" } }],
+        "responses": { "200": { "description": "OK" }, "404": { "description": "Not found" } }
+      }
+    },
+    "/genres": {
+      "get": { "tags": ["genres"], "summary": "List genres", "responses": { "200": { "description": "OK" } } },
+      "post": {
+        "tags": ["genres"],
+        "summary": "Create genre",
+        "requestBody": {
+          "required": true,
+          "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Genre" } } }
+        },
+        "responses": { "201": { "description": "Created" }, "400": { "description": "Invalid input" } }
+      }
+    },
+    "/genres/{id}": {
+      "get": { "tags": ["genres"], "summary": "Get genre", "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }], "responses": { "200": { "description": "OK" }, "404": { "description": "Not found" } } },
+      "put": {
+        "tags": ["genres"],
+        "summary": "Update genre",
+        "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }],
+        "requestBody": {
+          "required": true,
+          "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Genre" } } }
+        },
+        "responses": { "200": { "description": "Updated" }, "400": { "description": "Invalid input" }, "404": { "description": "Not found" } }
+      },
+      "delete": {
+        "tags": ["genres"],
+        "summary": "Delete genre",
+        "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }],
+        "responses": { "204": { "description": "Deleted" }, "404": { "description": "Not found" } }
+      }
+    },
+    "/media-types": {
+      "get": { "tags": ["media-types"], "summary": "List media types", "responses": { "200": { "description": "OK" } } }
+    },
+    "/media-types/{id}": {
+      "get": { "tags": ["media-types"], "summary": "Get media type", "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }], "responses": { "200": { "description": "OK" }, "404": { "description": "Not found" } } }
+    },
+    "/customers": {
+      "get": { "tags": ["customers"], "summary": "List customers", "responses": { "200": { "description": "OK" } } },
+      "post": {
+        "tags": ["customers"],
+        "summary": "Create customer",
+        "requestBody": {
+          "required": true,
+          "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Customer" } } }
+        },
+        "responses": { "201": { "description": "Created" }, "400": { "description": "Invalid input" } }
+      }
+    },
+    "/customers/{id}": {
+      "get": { "tags": ["customers"], "summary": "Get customer", "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }], "responses": { "200": { "description": "OK" }, "404": { "description": "Not found" } } },
+      "put": {
+        "tags": ["customers"],
+        "summary": "Update customer",
+        "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }],
+        "requestBody": {
+          "required": true,
+          "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Customer" } } }
+        },
+        "responses": { "200": { "description": "Updated" }, "400": { "description": "Invalid input" }, "404": { "description": "Not found" } }
+      },
+      "delete": {
+        "tags": ["customers"],
+        "summary": "Delete customer",
+        "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }],
+        "responses": { "204": { "description": "Deleted" }, "404": { "description": "Not found" } }
+      }
+    },
+    "/customers/{id}/invoices": {
+      "get": {
+        "tags": ["customers"],
+        "summary": "Get invoices by customer",
+        "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }],
+        "responses": { "200": { "description": "OK" }, "404": { "description": "Not found" } }
+      }
+    },
+    "/customers/email/{email}": {
+      "get": {
+        "tags": ["customers"],
+        "summary": "Get customer by email",
+        "parameters": [{ "name": "email", "in": "path", "required": true, "schema": { "type": "string" } }],
+        "responses": { "200": { "description": "OK" }, "404": { "description": "Not found" } }
+      }
+    },
+    "/invoices": {
+      "get": { "tags": ["invoices"], "summary": "List invoices", "responses": { "200": { "description": "OK" } } },
+      "post": {
+        "tags": ["invoices"],
+        "summary": "Create invoice",
+        "requestBody": {
+          "required": true,
+          "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Invoice" } } }
+        },
+        "responses": { "201": { "description": "Created" }, "400": { "description": "Invalid input" } }
+      }
+    },
+    "/invoices/{id}": {
+      "get": { "tags": ["invoices"], "summary": "Get invoice", "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }], "responses": { "200": { "description": "OK" }, "404": { "description": "Not found" } } },
+      "put": {
+        "tags": ["invoices"],
+        "summary": "Update invoice",
+        "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }],
+        "requestBody": {
+          "required": true,
+          "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Invoice" } } }
+        },
+        "responses": { "200": { "description": "Updated" }, "400": { "description": "Invalid input" }, "404": { "description": "Not found" } }
+      },
+      "delete": {
+        "tags": ["invoices"],
+        "summary": "Delete invoice",
+        "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }],
+        "responses": { "204": { "description": "Deleted" }, "404": { "description": "Not found" } }
+      }
+    },
+    "/invoices/{id}/items": {
+      "get": {
+        "tags": ["invoices"],
+        "summary": "Get invoice items by invoice",
+        "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }],
+        "responses": { "200": { "description": "OK" }, "404": { "description": "Not found" } }
+      }
+    },
+    "/invoice-items": {
+      "get": { "tags": ["invoice-items"], "summary": "List invoice items", "responses": { "200": { "description": "OK" } } }
+    },
+    "/invoice-items/{id}": {
+      "get": { "tags": ["invoice-items"], "summary": "Get invoice item", "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }], "responses": { "200": { "description": "OK" }, "404": { "description": "Not found" } } }
+    },
+    "/employees": {
+      "get": { "tags": ["employees"], "summary": "List employees", "responses": { "200": { "description": "OK" } } },
+      "post": {
+        "tags": ["employees"],
+        "summary": "Create employee",
+        "requestBody": {
+          "required": true,
+          "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Employee" } } }
+        },
+        "responses": { "201": { "description": "Created" }, "400": { "description": "Invalid input" } }
+      }
+    },
+    "/employees/{id}": {
+      "get": { "tags": ["employees"], "summary": "Get employee", "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }], "responses": { "200": { "description": "OK" }, "404": { "description": "Not found" } } },
+      "put": {
+        "tags": ["employees"],
+        "summary": "Update employee",
+        "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }],
+        "requestBody": {
+          "required": true,
+          "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Employee" } } }
+        },
+        "responses": { "200": { "description": "Updated" }, "400": { "description": "Invalid input" }, "404": { "description": "Not found" } }
+      },
+      "delete": {
+        "tags": ["employees"],
+        "summary": "Delete employee (admin only)",
+        "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }],
+        "responses": { "204": { "description": "Deleted" }, "403": { "description": "Forbidden" }, "404": { "description": "Not found" } }
+      }
+    },
+    "/employees/{id}/reports": {
+      "get": {
+        "tags": ["employees"],
+        "summary": "Get employee reports",
+        "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }],
+        "responses": { "200": { "description": "OK" }, "404": { "description": "Not found" } }
+      }
+    },
+    "/playlists": {
+      "get": { "tags": ["playlists"], "summary": "List playlists", "responses": { "200": { "description": "OK" } } },
+      "post": {
+        "tags": ["playlists"],
+        "summary": "Create playlist",
+        "requestBody": {
+          "required": true,
+          "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Playlist" } } }
+        },
+        "responses": { "201": { "description": "Created" }, "400": { "description": "Invalid input" } }
+      }
+    },
+    "/playlists/{id}": {
+      "get": { "tags": ["playlists"], "summary": "Get playlist", "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }], "responses": { "200": { "description": "OK" }, "404": { "description": "Not found" } } },
+      "put": {
+        "tags": ["playlists"],
+        "summary": "Update playlist",
+        "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }],
+        "requestBody": {
+          "required": true,
+          "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Playlist" } } }
+        },
+        "responses": { "200": { "description": "Updated" }, "400": { "description": "Invalid input" }, "404": { "description": "Not found" } }
+      },
+      "delete": {
+        "tags": ["playlists"],
+        "summary": "Delete playlist",
+        "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }],
+        "responses": { "204": { "description": "Deleted" }, "404": { "description": "Not found" } }
+      }
+    },
+    "/playlists/{id}/tracks": {
+      "get": {
+        "tags": ["playlists"],
+        "summary": "List tracks in playlist",
+        "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }],
+        "responses": { "200": { "description": "OK" }, "404": { "description": "Not found" } }
+      },
+      "post": {
+        "tags": ["playlists"],
+        "summary": "Add track to playlist",
+        "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }],
+        "requestBody": {
+          "required": true,
+          "content": { "application/json": { "schema": { "$ref": "#/components/schemas/AddTrack" } } }
+        },
+        "responses": { "201": { "description": "Track added" }, "400": { "description": "Invalid input" }, "404": { "description": "Not found" } }
+      }
+    },
+    "/playlists/{id}/tracks/{trackId}": {
+      "delete": {
+        "tags": ["playlists"],
+        "summary": "Remove track from playlist",
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "string" } },
+          { "name": "trackId", "in": "path", "required": true, "schema": { "type": "string" } }
+        ],
+        "responses": { "204": { "description": "Track removed" }, "404": { "description": "Not found" } }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Artist": {
+        "type": "object",
+        "properties": {
+          "ArtistId": { "type": "integer" },
+          "Name": { "type": "string" }
+        }
+      },
+      "Album": {
+        "type": "object",
+        "properties": {
+          "AlbumId": { "type": "integer" },
+          "Title": { "type": "string" },
+          "ArtistId": { "type": "integer" }
+        }
+      },
+      "Track": {
+        "type": "object",
+        "properties": {
+          "TrackId": { "type": "integer" },
+          "Name": { "type": "string" },
+          "AlbumId": { "type": "integer" },
+          "GenreId": { "type": "integer" },
+          "MediaTypeId": { "type": "integer" }
+        }
+      },
+      "Genre": {
+        "type": "object",
+        "properties": {
+          "GenreId": { "type": "integer" },
+          "Name": { "type": "string" }
+        }
+      },
+      "MediaType": {
+        "type": "object",
+        "properties": {
+          "MediaTypeId": { "type": "integer" },
+          "Name": { "type": "string" }
+        }
+      },
+      "Customer": {
+        "type": "object",
+        "properties": {
+          "CustomerId": { "type": "integer" },
+          "FirstName": { "type": "string" },
+          "LastName": { "type": "string" },
+          "Email": { "type": "string" }
+        }
+      },
+      "Invoice": {
+        "type": "object",
+        "properties": {
+          "InvoiceId": { "type": "integer" },
+          "CustomerId": { "type": "integer" },
+          "Total": { "type": "number" }
+        }
+      },
+      "InvoiceItem": {
+        "type": "object",
+        "properties": {
+          "InvoiceLineId": { "type": "integer" },
+          "InvoiceId": { "type": "integer" },
+          "TrackId": { "type": "integer" },
+          "UnitPrice": { "type": "number" },
+          "Quantity": { "type": "integer" }
+        }
+      },
+      "Employee": {
+        "type": "object",
+        "properties": {
+          "EmployeeId": { "type": "integer" },
+          "FirstName": { "type": "string" },
+          "LastName": { "type": "string" },
+          "Title": { "type": "string" },
+          "Email": { "type": "string" }
+        }
+      },
+      "Playlist": {
+        "type": "object",
+        "properties": {
+          "PlaylistId": { "type": "integer" },
+          "Name": { "type": "string" }
+        }
+      },
+      "AddTrack": {
+        "type": "object",
+        "properties": {
+          "TrackId": { "type": "integer" }
+        }
+      }
+    }
+  }
+}

@@ -1,28 +1,28 @@
-import { Hono } from "hono";
-import { authMiddleware } from "../src/middlewares/authMiddleware";
-import { errorHandler } from "../src/middlewares/errorHandler";
-import { notFoundHandler } from "../src/middlewares/notFoundHandler";
-import router from "../src/routes";
-import authRoutes from "../src/routes/auth.routes";
-import { loggingMiddleware } from "../src/middlewares/loggingMiddleware";
+import { Hono } from "hono"
+import { swaggerUI } from "@hono/swagger-ui"
+import { authMiddleware } from "@/middlewares/authMiddleware"
+import { errorHandler } from "@/middlewares/errorHandler"
+import { notFoundHandler } from "@/middlewares/notFoundHandler"
+import { loggingMiddleware } from "@/middlewares/loggingMiddleware"
+import router from "@/routes/index"
+import authRoutes from "@/features/auth/auth.routes"
 
-// Initialize app with chained routes
 const app = new Hono()
   // Middlewares
   .notFound(notFoundHandler)
   .onError(errorHandler)
-  .use("*", loggingMiddleware)
+  // .use("*", loggingMiddleware)
 
   // Public routes
   .get("/", (c) =>
     c.json({
       message: "Welcome to the API",
-      version: "1.0.0",
-    }),
+      version: "1.0.0"
+    })
   )
-  .route("/auth", authRoutes)
-  // Protected routes (authMiddleware applies to /*)
-  .use("/*", authMiddleware)
-  .route("/", router);
 
-export default app;
+  .route("/auth", authRoutes)
+  // .use("/*", authMiddleware)
+  .route("/", router)
+
+export default app
