@@ -1,17 +1,18 @@
 # Hono API
 
 A RESTful API built with [Hono](https://hono.dev/) and SQLite (Chinook sample database) for managing artists, albums, tracks, employees, customers, genres, invoices, invoice items, playlists, and media types.
-This API provides a simple and efficient way to interact with the Chinook database, allowing you to perform CRUD operations on various entities.
 
 ## Features
 
 - JWT authentication for secure endpoints
-- CRUD operations for artists, albums, tracks, employees, customers, genres, invoices, invoice items, playlists, and media types
-- Support for querying related data (e.g., albums by artist, tracks by album)
+- Feature-based folder structure for scalability
+- CRUD operations for all major entities
+- Query related data (e.g., albums by artist, tracks by album/genre)
 - Pagination support for listing endpoints
 - Input validation using Zod
 - Error handling middleware
-- Built-in logging
+- Built-in logging with Pino
+- Comprehensive integration tests with Bun
 
 ## Getting Started
 
@@ -34,11 +35,38 @@ bun run dev
 
 The server will start on [http://localhost:3000](http://localhost:3000).
 
+### Run Tests
+
+```sh
+bun test
+```
+
+## Project Structure
+
+```
+api/                # API entrypoint
+src/
+  db/               # Database connection
+  features/         # Feature-based modules (artists, albums, etc.)
+  middlewares/      # Custom middlewares
+  routes/           # Main router
+  tests/            # Additional tests
+  utils/            # Utilities (logger, validators, etc.)
+logs/               # Application logs
+```
+
 ## API Endpoints
+
+See [`openapi.json`](openapi.json) for the full OpenAPI spec.
+
+### Auth
+
+- `POST /auth/signup` — Register a new employee
+- `POST /auth/signin` — Sign in and get JWT
 
 ### Artists
 
-- `GET /artists` — List artists (supports `page` and `limit` query params)
+- `GET /artists` — List artists (`page`, `limit`)
 - `GET /artists/:id` — Get artist by ID
 - `POST /artists` — Create artist
 - `PUT /artists/:id` — Update artist
@@ -46,7 +74,7 @@ The server will start on [http://localhost:3000](http://localhost:3000).
 
 ### Albums
 
-- `GET /albums` — List albums (supports `page` and `limit`)
+- `GET /albums` — List albums (`page`, `limit`)
 - `GET /albums/:id` — Get album by ID
 - `POST /albums` — Create album
 - `PUT /albums/:id` — Update album
@@ -55,7 +83,7 @@ The server will start on [http://localhost:3000](http://localhost:3000).
 
 ### Tracks
 
-- `GET /tracks` — List tracks (supports `page` and `limit`)
+- `GET /tracks` — List tracks (`page`, `limit`)
 - `GET /tracks/:id` — Get track by ID
 - `POST /tracks` — Create track
 - `PUT /tracks/:id` — Update track
@@ -65,10 +93,10 @@ The server will start on [http://localhost:3000](http://localhost:3000).
 
 ### Employees
 
-- `GET /employees` — List all employees
+- `GET /employees` — List employees
 - `GET /employees/:id` — Get employee by ID
 - `GET /employees/:id/reports` — Get employees reporting to this employee
-- `POST /employees` — Create new employee
+- `POST /employees` — Create employee
 - `PUT /employees/:id` — Update employee
 - `DELETE /employees/:id` — Delete employee
 
@@ -92,7 +120,7 @@ The server will start on [http://localhost:3000](http://localhost:3000).
 
 ### Invoices
 
-- `GET /invoices` — List invoices (supports `page` and `limit`)
+- `GET /invoices` — List invoices (`page`, `limit`)
 - `GET /invoices/:id` — Get invoice by ID
 - `GET /invoices/:id/items` — Get invoice items for an invoice
 - `POST /invoices` — Create invoice
@@ -101,7 +129,7 @@ The server will start on [http://localhost:3000](http://localhost:3000).
 
 ### Invoice Items
 
-- `GET /invoice-items` — List invoice items (supports `page` and `limit`)
+- `GET /invoice-items` — List invoice items (`page`, `limit`)
 - `GET /invoice-items/:id` — Get invoice item by ID
 
 ### Playlists
