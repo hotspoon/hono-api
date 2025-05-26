@@ -11,7 +11,7 @@ const app = new Hono()
   // Middlewares
   .notFound(notFoundHandler)
   .onError(errorHandler)
-  // .use("*", loggingMiddleware)
+  .use("*", loggingMiddleware)
 
   // Public routes
   .get("/", (c) =>
@@ -22,7 +22,7 @@ const app = new Hono()
   )
 
   .route("/auth", authRoutes)
-  // .use("/*", authMiddleware)
+  .use("/*", authMiddleware)
   .route("/", router)
 
 export default app
